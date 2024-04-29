@@ -5,8 +5,9 @@ import torch
 from torch import nn
 import torch.nn.functional as F
 from recbole.model.abstract_recommender import SequentialRecommender
-from recbole.model.new_layers import TransformerEncoder,Encoder,HGNN
-
+from pytorch.model.encoder import EncLayer,Encoder
+from pytorch.model.mlp import MLP
+#from recbole.model.new_layers import TransformerEncoder,Encoder,HGNN
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
