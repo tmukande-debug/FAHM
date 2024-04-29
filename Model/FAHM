@@ -88,10 +88,10 @@ class FAHM(SequentialRecommender):
         # self.metric_w1 = nn.Parameter(torch.Tensor(1, self.hidden_size))
         # self.metric_w2 = nn.Parameter(torch.Tensor(1, self.hidden_size))
 
-        if self.dataset == "retail_beh":
+        if self.dataset == "IJCAI":
             self.sw_before = 10
             self.sw_follow = 6
-        elif self.dataset == "tmall_beh":
+        elif self.dataset == "Taobao":
             self.sw_before = 20
             self.sw_follow = 12
 
