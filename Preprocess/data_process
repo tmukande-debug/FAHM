@@ -4,7 +4,7 @@ from scipy.sparse import csr_matrix
 import pickle
 from Utils.TimeLogger import log
 
-#Tmall, the same as MBHT
+#IJCAI,
 def getBehId(beh):
 	if beh == 'pv':
 		behval = 1
@@ -168,7 +168,7 @@ def trans(interaction, usrnum, itmnum):
 		intMats.append(csr_matrix((d[i], (r[i], c[i])), shape=(usrnum, itmnum)))
 	return intMats
 
-prefix = 'D:/Datasets/Tmall/'
+prefix = 'D:/Datasets/IJCAI/'
 infile = prefix + 'UserBehavior.csv'
 log('Start')
 interaction, itmCat, usrnum, itmnum, catnum = mapping(infile)
