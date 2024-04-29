@@ -19,7 +19,7 @@ def sim(z1: torch.Tensor, z2: torch.Tensor):
 class FAHM(SequentialRecommender):
 
     def __init__(self, config, dataset):
-        super(FHT, self).__init__(config, dataset)
+        super(FAHM, self).__init__(config, dataset)
 
         # load parameters info
         self.n_layers = config['n_layers']
