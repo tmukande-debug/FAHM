@@ -16,7 +16,7 @@ def sim(z1: torch.Tensor, z2: torch.Tensor):
     z2 = F.normalize(z2)
     return torch.matmul(z1, z2.permute(0,2,1))
 
-class FHT(SequentialRecommender):
+class FAHM(SequentialRecommender):
 
     def __init__(self, config, dataset):
         super(FHT, self).__init__(config, dataset)
