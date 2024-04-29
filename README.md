@@ -23,5 +23,4 @@ python run_FHT.py --model=[FAHM] --dataset=[ijcai_beh] --gpu_id=[0] --batch_size
 ## Acknowledgement:
 ```
 
-}
 ```
