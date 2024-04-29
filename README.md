@@ -1,11 +1,11 @@
 ## FHT-MB
-This is the implementation for our paper Filter-enhanced Hypergraph Transformer for Multi-Behavior Sequential Recommendation, accepted by ICASSP'24.
+This is the implementation for our FAHM model.
 
 
 ## Datasets
-Tmall: https://tianchi.aliyun.com/dataset/649
+Taobao: https://
 
-RetailRocket: https://www.kaggle.com/datasets/retailrocket/ecommerce-dataset
+IJCAI: https://
 
 The processed datasets can be downloaded from the [URLs](https://drive.google.com/drive/u/1/my-drive).
 
