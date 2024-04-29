@@ -3,9 +3,9 @@ import time
 import torch
 import networkx as nx
 
-from hot_pytorch.batch.sparse import make_batch
-from hot_pytorch.batch.dense import Batch as D
-import hot_pytorch.models
+from pytorch.batch.sparse import make_batch
+from pytorch.batch.dense import Batch as D
+import pytorch.models
 
 
 @torch.no_grad()
