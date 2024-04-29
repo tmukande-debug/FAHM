@@ -1,6 +1,5 @@
 """
 Performer (FAVOR+) kernel attention
-Modified from https://github.com/lucidrains/performer-pytorch/blob/main/performer_pytorch/performer_pytorch.py
 """
 import math
 from functools import partial
