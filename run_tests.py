@@ -1,7 +1,7 @@
-from hot_pytorch.tests import test_set_util, test_dense_util, test_sparse_util
-from hot_pytorch.tests import test_dense_linear, test_sparse_linear
-from hot_pytorch.tests import test_dense_attn
-from hot_pytorch.tests import test_sparse_attn
+from pytorch.tests import test_set_util, test_dense_util, test_sparse_util
+from pytorch.tests import test_dense_linear, test_sparse_linear
+from pytorch.tests import test_dense_attn
+from pytorch.tests import test_sparse_attn
 
 
 if __name__ == '__main__':
