@@ -6,9 +6,8 @@ The code is built on Pytorch and the [RecBole](https://github.com/RUCAIBox/RecBo
 
 `pip install -r requirements.txt`
 
-
 ## Datasets
-
+Download the public datasets  at: https://drive.google.com/file/d/1OFT_5Xp_az-GSHIl7QEPB9zhulbooLzE/view?usp=sharing
 ##### Unzip the datasets and move them to the *./dataset/* directory
 
 
