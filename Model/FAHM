@@ -54,15 +54,19 @@ class FAHM(SequentialRecommender):
 
 
         self.trm_encoder = Encoder(
-            n_layers=self.n_layers,
+            dim_in=self.hidden_size,
+            dim_out=self.hidden_size,
+            set_fn_feats=[self.hidden_size],
+            dim_qk=self.hidden_size,
+            dim_v=self.hidden_size,
+            dim_ff=self.inner_size,
             n_heads=self.n_heads,
-            hidden_size=self.hidden_size,
-            inner_size=self.inner_size,
-            hidden_dropout_prob=self.hidden_dropout_prob,
-            attn_dropout_prob=self.attn_dropout_prob,
-            hidden_act=self.hidden_act,
-            layer_norm_eps=self.layer_norm_eps,
-            config=self.config
+            use_kernel=True,  # You can adjust these parameters as needed
+            drop_input=0.1,
+            dropout=0.1,
+            hidden_mlp=[self.hidden_size],
+            predict_diagonal=False
+        
         )
 
 
