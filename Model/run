@@ -56,7 +56,7 @@ if __name__ == '__main__':
         # "modes":64,
         # "mode_select_method": 'low',  #random; low?
         # "moving_avg":[48],
-        # "abaltion": ""
+        # "ablation": ""
     }
 
 
