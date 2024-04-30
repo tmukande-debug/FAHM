@@ -1,21 +1,14 @@
 ## FAHM
-This is the implementation for our FAHM model.
+This is the implementation for our FAHM model.The code is built on Pytorch and the RecBole library. Use following command to install the requeiremnts:
+
+## Requirements
+The code is built on Pytorch and the [RecBole](https://github.com/RUCAIBox/RecBole) library. Use following command to install the requeiremnts:
+
+`pip install -r requirements.txt`
 
 
 ## Datasets
-Taobao:
 
-IJCAI:
+##### Unzip the datasets and move them to the *./dataset/* directory
 
-The link the pre-processed datasets will be shared after review.
 
-## Train:
-python run_FAHM.py --model=[FAHM] --dataset=[ijcai_beh] --gpu_id=[0] --batch_size=[2048]
-
-## Description:
-FAHM model
-
-## Acknowledgement:
-```
-Removed for anonymity
-```
