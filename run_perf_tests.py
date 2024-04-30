@@ -7,6 +7,97 @@ from pytorch.batch.sparse import make_batch
 from pytorch.batch.dense import Batch as D
 import pytorch.models
 
+def get_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--model', '-m', type=str, default='FAHM', help='Model for session-based rec.')
+    parser.add_argument('--dataset', '-d', type=str, default='IJCAI', help='Benchmarks for session-based rec.')
+    parser.add_argument('--validation', action='store_true',
+                        help='Whether evaluating on validation set (split from train set), otherwise on test set.')
+    parser.add_argument('--valid_portion', type=float, default=0.1, help='ratio of validation set.')
+    parser.add_argument('--gpu_id', type=int, default=0)
+    parser.add_argument('--batch_size', type=int, default=2048)
+    # parser.add_argument('--modes', type=int, default=50)
+    # parser.add_argument('--moving_avg', default=[24], help='window size of moving average')
+    # parser.add_argument('--mode_select_method', type=str, default='random') #
+    # parser.add_argument('--no_filters', action='store_true')   ##store_false为true，即不使用Filter；store_true为false，即使用Filter;
+    return parser.parse_known_args()[0]
+
+    # configurations initialization
+    config_dict = {
+        'USER_ID_FIELD': 'session_id',
+        'load_col': None,
+        # 'neg_sampling': {'uniform':1},
+        'neg_sampling': None,
+        'benchmark_filename': ['train', 'test'],
+        'alias_of_item_id': ['item_id_list'],
+        'topk': [5, 10, 20, 50],
+        'metrics': ['Recall', 'NDCG', 'MRR','Precision'],
+        'valid_metric': 'NDCG@10',
+        'eval_args': {
+            'mode': 'full',
+            'order': 'TO'
+        },
+        'gpu_id': args.gpu_id,
+        "MAX_ITEM_LIST_LENGTH": 200,
+        "train_batch_size": 32 if args.dataset == "ijcai_beh" else 64,
+        "eval_batch_size": 24 if args.dataset == "ijcai_beh" else 128,
+        "customized_eval": 1,
+        "enable_hg": 1,
+        "simgcl_lambda":0.1,
+        # "lmd": 0.1,
+        # "sim": 'dot',
+        # "tau":1,
+        # "no_filters": 0,    #0即使用Filter, 1即不使用Filter
+        # "modes":64,
+        # "mode_select_method": 'low',  #random; low?
+        # "moving_avg":[48],
+        # "abaltion": ""
+    }
+
+
+
+    config = Config(model="FAHM", dataset=f'{args.dataset}', config_dict=config_dict)
+    # config['device']="cpu"
+    init_seed(config['seed'], config['reproducibility'])
+
+    # logger initialization
+    init_logger(config, log_root="log_test")
+    logger = getLogger()
+
+    logger.info(f"PID: {os.getpid()}")
+    logger.info(args)
+    logger.info(config)
+
+    # dataset filtering
+    dataset = create_dataset(config)
+    logger.info(dataset)
+
+    # dataset splitting
+    train_dataset, test_dataset = dataset.build()
+    train_sampler, test_sampler = create_samplers(config, dataset, [train_dataset, test_dataset])
+    if args.validation:
+        train_dataset.shuffle()
+        new_train_dataset, new_test_dataset = train_dataset.split_by_ratio([1 - args.valid_portion, args.valid_portion])
+        train_data = get_dataloader(config, 'train')(config, new_train_dataset, None, shuffle=True)
+        test_data = get_dataloader(config, 'test')(config, new_test_dataset, None, shuffle=False)
+    else:
+        train_data = get_dataloader(config, 'train')(config, train_dataset, train_sampler, shuffle=True)
+        test_data = get_dataloader(config, 'test')(config, test_dataset, test_sampler, shuffle=False)
+
+    # model loading and initialization
+    model = get_model(config['model'])(config, train_data.dataset).to(config['device'])
+    logger.info(model)
+
+    # trainer loading and initialization
+    trainer = get_trainer(config['MODEL_TYPE'], config['model'])(config, model)
+
+    # model training and evaluation
+    test_score, test_result = trainer.fit(
+        train_data, test_data, saved=True, show_progress=config['show_progress']
+    )
+
+    logger.info(set_color('test result', 'yellow') + f': {test_result}')
+
 
 @torch.no_grad()
 def get_batched_data(n, bsize, dim, sparse, seed, device='cuda'):
