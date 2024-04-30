@@ -13,8 +13,9 @@ The link the pre-processed datasets will be shared after review.
 python run_FAHM.py --model=[FAHM] --dataset=[ijcai_beh] --gpu_id=[0] --batch_size=[2048]
 
 ## Description:
-
+FAHM model
 
 ## Acknowledgement:
 ```
+Removed for anonymity
 ```
